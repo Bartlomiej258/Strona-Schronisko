@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .container {
+            max-width: 100%;
+        }
+
+        .banner {
+            text-align: center;
+            background-color: darkgray;
+            margin: auto;
+            padding: 50px;
+        }
+        .description {
+            padding-left: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="banner">Schronisko dla zwierząt</div>
+
+<div class="content">
+
+    <a href="/"> Powrót do strony głównej</a>
+
+    <h2 th:text="${name}">Nazwa zwierzaka</h2>
+
+    <p th:text="${description}">info o zwierzaku</p>
+
+</div>
+
+</body>
+</html>
