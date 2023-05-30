@@ -20,7 +20,10 @@
 <div class="banner"><h1>Schronisko Reksio i Klakier</h1></div>
 
 <h2>Dodaj zwierzaka do adopcji</h2>
-<form action="/add" method="post" th:object="${animal}" >
+<form th:action="${mode == 'edit' ? '/edit' : '/add'}" method="post" th:object="${animal}" >
+
+    <input type="hidden" th:field="*{id}">
+
     <label>Imię</label> <input type="text" th:field="*{name}"><br>
     <label>Opis</label> <textarea type="text" th:field="*{description}"></textarea><br>
     <label>Obrazek</label> <input type="text" th:field="*{img}"><br>
@@ -30,7 +33,7 @@
     <option value="OTHER">OTHER</option>
 </select>
     <br>
-    <input type="submit" value="dodaj"></input>
+    <input type="submit" th:value="${mode == 'edit' ? 'edit' : 'add'}"></input>
 
 </form>
 

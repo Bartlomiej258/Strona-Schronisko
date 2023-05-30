@@ -33,7 +33,10 @@
 
 <div class="content">
 
-    <a href="/"> Powrót do strony głównej</a>
+    <a href="/"> Powrót do strony głównej</a><br>
+
+    <a th:href="@{|/edit?imie=${animal.name}|}" >Edytuj</a>
+
 
     <img th:src="${animal.img}"/>
 

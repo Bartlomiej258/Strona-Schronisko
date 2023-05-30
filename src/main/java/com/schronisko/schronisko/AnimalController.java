@@ -46,7 +46,8 @@ public class AnimalController {
     @GetMapping("/add")
     public String addForm(Model model) {
         model.addAttribute("animal", new Animal());
-        return "form";
+        model.addAttribute("mode", "add");
+        return "addOrEdit";
     }
 
     @PostMapping("/add")
@@ -54,4 +55,24 @@ public class AnimalController {
         animalRepository.add(animal);
         return "redirect:/";
     }
+
+    @GetMapping("/edit")
+    public String editForm(Model model, @RequestParam String imie) {
+        Animal animal = animalRepository.findByName(imie);
+        model.addAttribute("animal", animal);
+        model.addAttribute("mode", "edit");
+        return "addOrEdit";
+    }
+
+    @PostMapping("/edit")
+    public String edit(Animal animal) {
+        Animal animalInDb = animalRepository.findById(animal.getId());
+        animalInDb.setName(animal.getName());
+        animalInDb.setDescription(animal.getDescription());
+        animalInDb.setImg(animal.getImg());
+        animalInDb.setSpecies(animal.getSpecies());
+        animalRepository.update(animalInDb);
+        return "redirect:/zwierzak?imie=" + animal.getName();
+    }
+
 }
