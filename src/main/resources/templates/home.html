@@ -38,27 +38,42 @@
     .animal {
         display: flex;
         flex-direction: row;
-
     }
+
+    .category li {
+        display: inline;
+        list-style-type: none;
+        margin-right: 10px;
+    }
+
 </style>
 <body>
 
-<div class="banner">
-    <h1>Schronisko dla zwierząt</h1>
-</div>
+<div class="banner"><h1>Schronisko Reksio i Klakier</h1></div>
 
-<div class="container">
+<div class="content">
 
-    <h2>Zwierzaki szukają domu</h2>
+    <a href="/add">Dodaj zwierzaka</a>
+    <br>
+    Gatunki:
+    <a href="/">Wszystkie</a>
+    <a href="/?gatunek=CAT">Koty</a>
+    <a href="/?gatunek=DOG">Psy</a>
+    <a href="/?gatunek=OTHER">Inne</a>
+
+    <h2>Zwierzaki szukające domu:</h2>
 
     <a th:href="@{'/zwierzak?imie=' + ${animal.name}}" class="animal" th:each="animal: ${animals}">
-        <img th:src="${animal.img}"/>
-        <div class="animal-info">
+        <img th:src="${animal.img}" style="width: 300px; min-width: 300px"/>
+        <div class="animal-info ml-2">
             <h2 th:text="${animal.name}">Azor</h2>
-            <p th:text="${animal.description}">opis</p>
+            <p th:text="${animal.description}">opis opis opis</p>
         </div>
+
+
     </a>
 
 </div>
+
 </body>
 </html>

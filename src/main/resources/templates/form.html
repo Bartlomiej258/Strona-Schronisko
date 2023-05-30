@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formularz rejestracyjny</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<style>
+    .banner {
+        max-width: 100%;
+        background-color: #ccc;
+        padding: 80px;
+        text-align: center;
+    }
+</style>
+<body>
+<div class="banner"><h1>Schronisko Reksio i Klakier</h1></div>
+
+<h2>Dodaj zwierzaka do adopcji</h2>
+<form action="/add" method="post" th:object="${animal}" >
+    <label>Imię</label> <input type="text" th:field="*{name}"><br>
+    <label>Opis</label> <textarea type="text" th:field="*{description}"></textarea><br>
+    <label>Obrazek</label> <input type="text" th:field="*{img}"><br>
+    <label>Kategoria</label> <select th:field="*{species}">wybierz
+    <option value="CAT">CAT</option>
+    <option value="DOG">DOG</option>
+    <option value="OTHER">OTHER</option>
+</select>
+    <br>
+    <input type="submit" value="dodaj"></input>
+
+</form>
+
+</body>
+</html>
