@@ -19,6 +19,12 @@
         .description {
             padding-left: 10px;
         }
+        img {
+            display: flex;
+            justify-content: left;
+            max-width: 300px;
+
+        }
     </style>
 </head>
 <body>
@@ -29,9 +35,11 @@
 
     <a href="/"> Powrót do strony głównej</a>
 
-    <h2 th:text="${name}">Nazwa zwierzaka</h2>
+    <img th:src="${animal.img}"/>
 
-    <p th:text="${description}">info o zwierzaku</p>
+    <h2 th:text="${animal.name}">Nazwa zwierzaka</h2>
+
+    <p th:text="${animal.description}">info o zwierzaku</p>
 
 </div>
 
