@@ -2,8 +2,8 @@ package com.schronisko.schronisko;
 
 import org.springframework.stereotype.Repository;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Repository
 public class AnimalRepository {
@@ -72,5 +72,15 @@ public class AnimalRepository {
 
     public void update(Animal animalInDb) {
         animals.add(animalInDb);
+    }
+
+    public Set<Animal> findByNameContains(String searchText) {
+        Set<Animal> filtered = new HashSet<>();
+        for (Animal animal : animals) {
+            if (animal.getName().toLowerCase().contains(searchText.toLowerCase())) {
+                filtered.add(animal);
+            }
+        }
+        return filtered;
     }
 }

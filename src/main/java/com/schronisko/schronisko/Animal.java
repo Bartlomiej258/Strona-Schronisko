@@ -1,5 +1,7 @@
 package com.schronisko.schronisko;
 
+import java.util.Objects;
+
 public class Animal {
 
     private Long id;
@@ -57,5 +59,18 @@ public class Animal {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Animal animal = (Animal) o;
+        return Objects.equals(id, animal.id) && Objects.equals(name, animal.name) && Objects.equals(description, animal.description) && Objects.equals(img, animal.img) && species == animal.species;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, description, img, species);
     }
 }

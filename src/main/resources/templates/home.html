@@ -46,6 +46,10 @@
         margin-right: 10px;
     }
 
+    a {
+        margin-bottom: 30px;
+    }
+
 </style>
 <body>
 
@@ -60,6 +64,17 @@
     <a href="/?gatunek=CAT">Koty</a>
     <a href="/?gatunek=DOG">Psy</a>
     <a href="/?gatunek=OTHER">Inne</a>
+    <br>
+    Sort:
+    <a th:href="'/?order=ASC' + (${species != null} ? '&gatunek=' + ${species} : '')">rosnąco</a>
+    <a th:href="'/?order=DESC' + (${species != null} ? '&gatunek=' + ${species} : '')">malejąco</a>
+
+    <br>
+    Wyszukaj:
+    <form action="/" method="get">
+        <input type="text" name="searchText">
+        <input type="submit" value="szukaj">
+    </form>
 
     <h2>Zwierzaki szukające domu:</h2>
 

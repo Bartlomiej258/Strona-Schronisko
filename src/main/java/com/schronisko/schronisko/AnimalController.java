@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -18,15 +21,37 @@ public class AnimalController {
     }
 
     @GetMapping("/")
-    public String home(Model model, @RequestParam(required = false, name= "gatunek") AnimalSpecies species) {
+    public String home(Model model,
+                       @RequestParam(required = false) String searchText,
+                       @RequestParam(required = false, name = "gatunek") AnimalSpecies species,
+                       @RequestParam(required = false) String order) {
         Set<Animal> animals;
 
-        if(species != null) {
-            animals = animalRepository.findBySpecies(species);
+        if (searchText != null) {
+            animals = animalRepository.findByNameContains(searchText);
         } else {
-            animals = animalRepository.findAll();
+            if (species != null) {
+                animals = animalRepository.findBySpecies(species);
+            } else {
+                animals = animalRepository.findAll();
+            }
         }
-        model.addAttribute("animals", animals);
+
+        List<Animal> animalList = new ArrayList<>(animals);
+
+        if (order != null) {
+            int asc = (order.equals("ASC")) ? 1 : -1;
+            animalList.sort(new Comparator<Animal>() {
+                @Override
+                public int compare(Animal o1, Animal o2) {
+                    return o1.getName().compareTo(o2.getName()) * asc;
+                }
+            });
+        }
+
+
+        model.addAttribute("animals", animalList);
+        model.addAttribute("species", species);
         return "home"; // -> /resources/templates/home.html
     }
 
@@ -35,10 +60,10 @@ public class AnimalController {
 
         Animal animal = animalRepository.findByName(imie);
 
-        if(animal != null) {
+        if (animal != null) {
             model.addAttribute("animal", animal);
             return "animal"; // -> /resources/templates/animal.html
-        } else  {
+        } else {
             return "redirect:/";
         }
     }
@@ -74,5 +99,13 @@ public class AnimalController {
         animalRepository.update(animalInDb);
         return "redirect:/zwierzak?imie=" + animal.getName();
     }
+
+//    @GetMapping("/search")
+//    public String sortAnimal(Model model, Animal animal) {
+//        Set<Animal> sortedSet = animalRepository.sortByName();
+//        model.addAttribute("sorted", sortedSet);
+//        model.addAttribute("animal", animal);
+//        return "sortedForm";
+//    }
 
 }
